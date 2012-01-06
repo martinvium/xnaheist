@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using FarseerPhysics.DebugViews;
 
 namespace xnaheist
 {
@@ -18,6 +19,12 @@ namespace xnaheist
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        //drawing
+        SpriteFont _font;
+
+        //Debug view
+        DebugViewXNA _debugView;
 
         public Game1()
         {
@@ -47,7 +54,11 @@ namespace xnaheist
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            _font = Content.Load<SpriteFont>("times new roman");
+
             // TODO: use this.Content to load your game content here
+
+            
         }
 
         /// <summary>
@@ -82,9 +93,12 @@ namespace xnaheist
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            spriteBatch.Begin();
             // TODO: Add your drawing code here
+            string dummy = "The fish is flying high to day!";
+            spriteBatch.DrawString(_font, dummy, new Vector2(100,100), Color.White);
 
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }
