@@ -1,0 +1,6 @@
+C:\Users\Christoffer\workspace\Visual Studio\xnaheist\xnaheist\xnaheist\xnaheist\bin\x86\Debug\xnaheist.exe
+C:\Users\Christoffer\workspace\Visual Studio\xnaheist\xnaheist\xnaheist\xnaheist\bin\x86\Debug\xnaheist.pdb
+C:\Users\Christoffer\workspace\Visual Studio\xnaheist\xnaheist\xnaheist\xnaheist\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Christoffer\workspace\Visual Studio\xnaheist\xnaheist\xnaheist\xnaheist\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Christoffer\workspace\Visual Studio\xnaheist\xnaheist\xnaheist\xnaheist\obj\x86\Debug\xnaheist.exe
+C:\Users\Christoffer\workspace\Visual Studio\xnaheist\xnaheist\xnaheist\xnaheist\obj\x86\Debug\xnaheist.pdb
