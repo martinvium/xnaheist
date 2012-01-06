@@ -20,8 +20,10 @@ namespace xnaheist
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        //drawing
+        //drawing, just for testing and playing
         SpriteFont _font;
+        Vector2 _textPos;
+
 
         //Debug view
         DebugViewXNA _debugView;
@@ -53,8 +55,10 @@ namespace xnaheist
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            
+            //todo->test things
             _font = Content.Load<SpriteFont>("times new roman");
+            _textPos = new Vector2(100, 100);
 
             // TODO: use this.Content to load your game content here
 
@@ -81,6 +85,9 @@ namespace xnaheist
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
+            
+            //todo-> test things
+            HandleKeyboard();
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -96,10 +103,37 @@ namespace xnaheist
             spriteBatch.Begin();
             // TODO: Add your drawing code here
             string dummy = "The fish is flying high to day!";
-            spriteBatch.DrawString(_font, dummy, new Vector2(100,100), Color.White);
+            spriteBatch.DrawString(_font, dummy, _textPos, Color.White);
 
             spriteBatch.End();
             base.Draw(gameTime);
+        }
+
+        private void HandleKeyboard()
+        {
+            KeyboardState _keyState = Keyboard.GetState();
+
+            if (_keyState.IsKeyDown(Keys.Left))
+            {
+                _textPos = new Vector2(_textPos.X - 1, _textPos.Y);
+            }
+            if (_keyState.IsKeyDown(Keys.Right))
+            {
+                _textPos = new Vector2(_textPos.X + 1, _textPos.Y);
+            }
+            if (_keyState.IsKeyDown(Keys.Up))
+            {
+                _textPos = new Vector2(_textPos.X, _textPos.Y - 1);
+            }
+            if (_keyState.IsKeyDown(Keys.Down))
+            {
+                _textPos = new Vector2(_textPos.X, _textPos.Y + 1);
+            }
+            if (_keyState.IsKeyDown(Keys.Escape))
+            {
+                Exit();
+            }
+
         }
     }
 }
