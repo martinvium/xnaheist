@@ -78,6 +78,8 @@ namespace xnaheist
         protected override void Initialize()
         {
             player = new GameObject();
+            player.Name = "Mr. Shizzle";
+
             inputSystem = new InputSystem(this);
             inputSystem.Player = player;
 
@@ -144,11 +146,9 @@ namespace xnaheist
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin();
-            // TODO: Add your drawing code here
-            string dummy = "The fish is flying high to day!";
-            spriteBatch.DrawString(_font, dummy, _textBody.Position * TILE_SIZE, Color.White);
 
+            spriteBatch.Begin();
+            spriteBatch.DrawString(_font, player.ToString(), player.Body.Position * TILE_SIZE, Color.White);
             spriteBatch.End();
 
             // calculate the projection and view adjustments for the debug view
@@ -164,40 +164,6 @@ namespace xnaheist
             base.Draw(gameTime);
         }
 
-        private void HandleKeyboard()
-        {
-            KeyboardState _keyState = Keyboard.GetState();
-
-            if (_keyState.IsKeyDown(Keys.Left))
-            {
-                _textBody.ApplyLinearImpulse(new Vector2(-VELOCITY, 0));
-            }
-            if (_keyState.IsKeyDown(Keys.Right))
-            {
-                _textBody.ApplyLinearImpulse(new Vector2(VELOCITY, 0));
-            }
-            if (_keyState.IsKeyDown(Keys.Up))
-            {
-                _textBody.ApplyLinearImpulse(new Vector2(0, -VELOCITY));
-            }
-            if (_keyState.IsKeyDown(Keys.Down))
-            {
-                _textBody.ApplyLinearImpulse(new Vector2(0, VELOCITY));
-            }
-            if (_keyState.IsKeyDown(Keys.Escape))
-            {
-                Exit();
-            }
-            if (_keyState.IsKeyDown(Keys.LeftAlt))
-            {
-                _showDebug = true;
-            }
-            else
-            {
-                _showDebug = false;
-            }
-
-        }
         private bool OnCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             return true;
