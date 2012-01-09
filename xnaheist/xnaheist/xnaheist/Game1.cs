@@ -40,6 +40,13 @@ namespace xnaheist
         bool _showDebug = false;
         DebugViewXNA _debugView;
         Vector2 _screenCenter;
+        InputSystem inputSystem;
+        GameObject player;
+
+        public bool ShowDebug
+        {
+            set { _showDebug = value; }
+        }
 
         public Game1()
         {
@@ -70,7 +77,9 @@ namespace xnaheist
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            player = new GameObject();
+            inputSystem = new InputSystem(this);
+            inputSystem.Player = player;
 
             base.Initialize();
         }
@@ -89,6 +98,7 @@ namespace xnaheist
             _textBody = BodyFactory.CreateRectangle(_world, 300/TILE_SIZE, 100/TILE_SIZE, 1, new Vector2(5,5));
             _textBody.BodyType = BodyType.Dynamic;
             _textBody.OnCollision += OnCollision;
+            player.Body = _textBody;
 
             // TODO: use this.Content to load your game content here
 
@@ -118,14 +128,12 @@ namespace xnaheist
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
+            //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            //    this.Exit();
 
-            
-            //todo-> test things
-            HandleKeyboard();
-            // TODO: Add your update logic here
+            inputSystem.Update();
             _world.Step((float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.001f);
+
             base.Update(gameTime);
         }
 
