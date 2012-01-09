@@ -9,6 +9,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using FarseerPhysics.DebugViews;
+using FarseerPhysics.Dynamics;
+using FarseerPhysics;
+using FarseerPhysics.Factories;
 
 namespace xnaheist
 {
@@ -17,20 +20,35 @@ namespace xnaheist
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
-        GraphicsDeviceManager graphics;
+        GraphicsDeviceManager _graphics;
         SpriteBatch spriteBatch;
 
         //drawing, just for testing and playing
         SpriteFont _font;
-        Vector2 _textPos;
+        
+        Body _textBody;
 
+        World _world = new World(new Vector2(2, 20));
 
         //Debug view
+        bool _showDebug = false;
         DebugViewXNA _debugView;
+        Vector2 _screenCenter;
 
         public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
+            _graphics = new GraphicsDeviceManager(this);           
+            _graphics.PreferredBackBufferWidth = 1280;
+            _graphics.PreferredBackBufferHeight = 720;
+
+            //_graphics.IsFullScreen = true;
+
+            //borders
+            BodyFactory.CreateEdge(_world, new Vector2(0, 0) / 64f, new Vector2(0, _graphics.PreferredBackBufferWidth) / 64f);
+            BodyFactory.CreateEdge(_world, new Vector2(0, 0) / 64f, new Vector2(_graphics.PreferredBackBufferHeight, 0) / 64f);
+            BodyFactory.CreateEdge(_world, new Vector2(0, _graphics.PreferredBackBufferWidth) / 64f, new Vector2(_graphics.PreferredBackBufferHeight, _graphics.PreferredBackBufferWidth) / 64f);
+            BodyFactory.CreateEdge(_world, new Vector2(_graphics.PreferredBackBufferHeight, 0) / 64f, new Vector2(_graphics.PreferredBackBufferHeight, _graphics.PreferredBackBufferWidth) / 64f);
+
             Content.RootDirectory = "Content";
         }
 
@@ -58,11 +76,19 @@ namespace xnaheist
             
             //todo->test things
             _font = Content.Load<SpriteFont>("times new roman");
-            _textPos = new Vector2(100, 100);
+            _textBody = BodyFactory.CreateRectangle(_world, 100, 20, 1, new Vector2(5,5));
+            _textBody.BodyType = BodyType.Dynamic;
+            
 
             // TODO: use this.Content to load your game content here
 
-            
+            _screenCenter = new Vector2(_graphics.GraphicsDevice.Viewport.Width / 2f,
+                                                _graphics.GraphicsDevice.Viewport.Height / 2f);
+            _debugView = new DebugViewXNA(_world);
+            _debugView.AppendFlags(DebugViewFlags.DebugPanel);
+            _debugView.DefaultShapeColor = Color.Black;
+            _debugView.SleepingShapeColor = Color.LightGray;
+            _debugView.LoadContent(GraphicsDevice, Content);
         }
 
         /// <summary>
@@ -89,7 +115,7 @@ namespace xnaheist
             //todo-> test things
             HandleKeyboard();
             // TODO: Add your update logic here
-
+            _world.Step((float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.001f);
             base.Update(gameTime);
         }
 
@@ -103,9 +129,20 @@ namespace xnaheist
             spriteBatch.Begin();
             // TODO: Add your drawing code here
             string dummy = "The fish is flying high to day!";
-            spriteBatch.DrawString(_font, dummy, _textPos, Color.White);
+            spriteBatch.DrawString(_font, dummy, _textBody.Position * 64f, Color.White);
 
             spriteBatch.End();
+
+            // calculate the projection and view adjustments for the debug view
+            Matrix projection = Matrix.CreateOrthographicOffCenter(0f, _graphics.GraphicsDevice.Viewport.Width / 64,
+                                                             _graphics.GraphicsDevice.Viewport.Height / 64, 0f, 0f,
+                                                             1f);
+            Matrix view = Matrix.CreateTranslation(new Vector3((Vector2.Zero/ 64) - (_screenCenter / 64), 0f)) * Matrix.CreateTranslation(new Vector3((_screenCenter / 64), 0f));
+
+            if (_showDebug)
+                _debugView.RenderDebugData(ref projection, ref view);
+
+
             base.Draw(gameTime);
         }
 
@@ -115,23 +152,31 @@ namespace xnaheist
 
             if (_keyState.IsKeyDown(Keys.Left))
             {
-                _textPos = new Vector2(_textPos.X - 1, _textPos.Y);
+                _textBody.ApplyForce(new Vector2(20, 0));
             }
             if (_keyState.IsKeyDown(Keys.Right))
             {
-                _textPos = new Vector2(_textPos.X + 1, _textPos.Y);
+                _textBody.ApplyLinearImpulse(new Vector2(3, 0));
             }
             if (_keyState.IsKeyDown(Keys.Up))
             {
-                _textPos = new Vector2(_textPos.X, _textPos.Y - 1);
+                _textBody.ApplyLinearImpulse(new Vector2(0, -3.0f));
             }
             if (_keyState.IsKeyDown(Keys.Down))
             {
-                _textPos = new Vector2(_textPos.X, _textPos.Y + 1);
+                _textBody.ApplyLinearImpulse(new Vector2(0, 3.0f));
             }
             if (_keyState.IsKeyDown(Keys.Escape))
             {
                 Exit();
+            }
+            if (_keyState.IsKeyDown(Keys.LeftAlt))
+            {
+                _showDebug = true;
+            }
+            else
+            {
+                _showDebug = false;
             }
 
         }
