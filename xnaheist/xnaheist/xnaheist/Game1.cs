@@ -12,6 +12,7 @@ using FarseerPhysics.DebugViews;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics;
 using FarseerPhysics.Factories;
+using FarseerPhysics.Dynamics.Contacts;
 
 namespace xnaheist
 {
@@ -44,10 +45,14 @@ namespace xnaheist
             //_graphics.IsFullScreen = true;
 
             //borders
-            BodyFactory.CreateEdge(_world, new Vector2(0, 0) / 64f, new Vector2(0, _graphics.PreferredBackBufferWidth) / 64f);
-            BodyFactory.CreateEdge(_world, new Vector2(0, 0) / 64f, new Vector2(_graphics.PreferredBackBufferHeight, 0) / 64f);
-            BodyFactory.CreateEdge(_world, new Vector2(0, _graphics.PreferredBackBufferWidth) / 64f, new Vector2(_graphics.PreferredBackBufferHeight, _graphics.PreferredBackBufferWidth) / 64f);
-            BodyFactory.CreateEdge(_world, new Vector2(_graphics.PreferredBackBufferHeight, 0) / 64f, new Vector2(_graphics.PreferredBackBufferHeight, _graphics.PreferredBackBufferWidth) / 64f);
+            //top
+            BodyFactory.CreateEdge(_world, new Vector2(0, 0) / 64f, new Vector2(0, 1280) / 64f);
+            //left
+            BodyFactory.CreateEdge(_world, new Vector2(0, 0) / 64f, new Vector2(1280, 0) / 64f);
+            //right
+            BodyFactory.CreateEdge(_world, new Vector2(1280, 0) / 64f, new Vector2(1280,720) / 64f);
+            //bottom
+            BodyFactory.CreateEdge(_world, new Vector2(0, 720) / 64f, new Vector2(1280, 720) / 64f);
 
             Content.RootDirectory = "Content";
         }
@@ -76,9 +81,9 @@ namespace xnaheist
             
             //todo->test things
             _font = Content.Load<SpriteFont>("times new roman");
-            _textBody = BodyFactory.CreateRectangle(_world, 100, 20, 1, new Vector2(5,5));
+            _textBody = BodyFactory.CreateRectangle(_world, 300/64, 100/64, 1, new Vector2(5,5));
             _textBody.BodyType = BodyType.Dynamic;
-            
+            _textBody.OnCollision += OnCollision;
 
             // TODO: use this.Content to load your game content here
 
@@ -152,7 +157,7 @@ namespace xnaheist
 
             if (_keyState.IsKeyDown(Keys.Left))
             {
-                _textBody.ApplyForce(new Vector2(20, 0));
+                _textBody.ApplyLinearImpulse(new Vector2(-3, 0));
             }
             if (_keyState.IsKeyDown(Keys.Right))
             {
@@ -179,6 +184,10 @@ namespace xnaheist
                 _showDebug = false;
             }
 
+        }
+        private bool OnCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        {
+            return true;
         }
     }
 }
