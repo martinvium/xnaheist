@@ -21,6 +21,11 @@ namespace xnaheist
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
+        const float TILE_SIZE = 64f;
+        const int WIDTH = 1280;
+        const int HEIGHT = 720;
+        const float VELOCITY = 3.0f;
+
         GraphicsDeviceManager _graphics;
         SpriteBatch spriteBatch;
 
@@ -39,20 +44,20 @@ namespace xnaheist
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);           
-            _graphics.PreferredBackBufferWidth = 1280;
-            _graphics.PreferredBackBufferHeight = 720;
+            _graphics.PreferredBackBufferWidth = WIDTH;
+            _graphics.PreferredBackBufferHeight = HEIGHT;
 
             //_graphics.IsFullScreen = true;
 
             //borders
             //top
-            BodyFactory.CreateEdge(_world, new Vector2(0, 0) / 64f, new Vector2(0, 1280) / 64f);
+            BodyFactory.CreateEdge(_world, new Vector2(0, 0) / TILE_SIZE, new Vector2(0, WIDTH) / TILE_SIZE);
             //left
-            BodyFactory.CreateEdge(_world, new Vector2(0, 0) / 64f, new Vector2(1280, 0) / 64f);
+            BodyFactory.CreateEdge(_world, new Vector2(0, 0) / TILE_SIZE, new Vector2(WIDTH, 0) / TILE_SIZE);
             //right
-            BodyFactory.CreateEdge(_world, new Vector2(1280, 0) / 64f, new Vector2(1280,720) / 64f);
+            BodyFactory.CreateEdge(_world, new Vector2(WIDTH, 0) / TILE_SIZE, new Vector2(WIDTH, HEIGHT) / TILE_SIZE);
             //bottom
-            BodyFactory.CreateEdge(_world, new Vector2(0, 720) / 64f, new Vector2(1280, 720) / 64f);
+            BodyFactory.CreateEdge(_world, new Vector2(0, HEIGHT) / TILE_SIZE, new Vector2(WIDTH, HEIGHT) / TILE_SIZE);
 
             Content.RootDirectory = "Content";
         }
@@ -81,7 +86,7 @@ namespace xnaheist
             
             //todo->test things
             _font = Content.Load<SpriteFont>("times new roman");
-            _textBody = BodyFactory.CreateRectangle(_world, 300/64, 100/64, 1, new Vector2(5,5));
+            _textBody = BodyFactory.CreateRectangle(_world, 300/TILE_SIZE, 100/TILE_SIZE, 1, new Vector2(5,5));
             _textBody.BodyType = BodyType.Dynamic;
             _textBody.OnCollision += OnCollision;
 
@@ -134,15 +139,15 @@ namespace xnaheist
             spriteBatch.Begin();
             // TODO: Add your drawing code here
             string dummy = "The fish is flying high to day!";
-            spriteBatch.DrawString(_font, dummy, _textBody.Position * 64f, Color.White);
+            spriteBatch.DrawString(_font, dummy, _textBody.Position * TILE_SIZE, Color.White);
 
             spriteBatch.End();
 
             // calculate the projection and view adjustments for the debug view
-            Matrix projection = Matrix.CreateOrthographicOffCenter(0f, _graphics.GraphicsDevice.Viewport.Width / 64,
-                                                             _graphics.GraphicsDevice.Viewport.Height / 64, 0f, 0f,
+            Matrix projection = Matrix.CreateOrthographicOffCenter(0f, _graphics.GraphicsDevice.Viewport.Width / TILE_SIZE,
+                                                             _graphics.GraphicsDevice.Viewport.Height / TILE_SIZE, 0f, 0f,
                                                              1f);
-            Matrix view = Matrix.CreateTranslation(new Vector3((Vector2.Zero/ 64) - (_screenCenter / 64), 0f)) * Matrix.CreateTranslation(new Vector3((_screenCenter / 64), 0f));
+            Matrix view = Matrix.CreateTranslation(new Vector3((Vector2.Zero / TILE_SIZE) - (_screenCenter / TILE_SIZE), 0f)) * Matrix.CreateTranslation(new Vector3((_screenCenter / TILE_SIZE), 0f));
 
             if (_showDebug)
                 _debugView.RenderDebugData(ref projection, ref view);
@@ -157,19 +162,19 @@ namespace xnaheist
 
             if (_keyState.IsKeyDown(Keys.Left))
             {
-                _textBody.ApplyLinearImpulse(new Vector2(-3, 0));
+                _textBody.ApplyLinearImpulse(new Vector2(-VELOCITY, 0));
             }
             if (_keyState.IsKeyDown(Keys.Right))
             {
-                _textBody.ApplyLinearImpulse(new Vector2(3, 0));
+                _textBody.ApplyLinearImpulse(new Vector2(VELOCITY, 0));
             }
             if (_keyState.IsKeyDown(Keys.Up))
             {
-                _textBody.ApplyLinearImpulse(new Vector2(0, -3.0f));
+                _textBody.ApplyLinearImpulse(new Vector2(0, -VELOCITY));
             }
             if (_keyState.IsKeyDown(Keys.Down))
             {
-                _textBody.ApplyLinearImpulse(new Vector2(0, 3.0f));
+                _textBody.ApplyLinearImpulse(new Vector2(0, VELOCITY));
             }
             if (_keyState.IsKeyDown(Keys.Escape))
             {
