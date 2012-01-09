@@ -16,7 +16,7 @@ namespace xnaheist
 
         public InputSystem(Game1 game)
         {
-            this.game = game;
+            this.game = game;        
         }
 
         public GameObject Player
