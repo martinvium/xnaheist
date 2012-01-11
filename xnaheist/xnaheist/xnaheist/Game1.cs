@@ -40,7 +40,7 @@ namespace xnaheist
         bool _showDebug = false;
         DebugViewXNA _debugView;
         Vector2 _screenCenter;
-        InputSystem inputSystem;
+        InputManager inputSystem;
         GameObject player;
         GameObjectFactory gameObjectFactory;
 
@@ -83,7 +83,7 @@ namespace xnaheist
             player = gameObjectFactory.getPlayer();
             player.Name = "Mr. Shizzle";
 
-            inputSystem = new InputSystem(this);
+            inputSystem = new InputManager(this);
             inputSystem.Player = player;
 
             base.Initialize();
@@ -97,6 +97,7 @@ namespace xnaheist
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            
             
             _font = Content.Load<SpriteFont>("times new roman");
 

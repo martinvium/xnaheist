@@ -7,14 +7,14 @@ using Microsoft.Xna.Framework;
 
 namespace xnaheist
 {
-    class InputSystem
+    class InputManager
     {
         const float VELOCITY = 3.0f;
 
         GameObject gameObject;
         Game1 game;
 
-        public InputSystem(Game1 game)
+        public InputManager(Game1 game)
         {
             this.game = game;        
         }
