@@ -39,6 +39,8 @@ namespace xnaheist
         GameObjectFactory _gameObjectFactory;
         ResourceManager _resources;
 
+        Camera.Camera _cam;
+
         public bool ShowDebug
         {
             set { _showDebug = value; }
@@ -80,6 +82,8 @@ namespace xnaheist
 
             _inputManager = new InputManager(this);
             _inputManager.Player = _player;
+
+            _cam = new Camera.Camera(new Vector2(0, 0), GraphicsDevice.Viewport);
 
             base.Initialize();
         }
@@ -127,7 +131,7 @@ namespace xnaheist
 
             _inputManager.Update();
             _world.Step((float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.001f);
-
+            _cam.Update();
             base.Update(gameTime);
         }
 
@@ -140,7 +144,7 @@ namespace xnaheist
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             SpriteBatch spriteBatch = _resources.GetSpriteBatch();
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, _cam.ViewMatrix);
             spriteBatch.DrawString(_resources.GetFont(), _player.ToString(), _player.Body.Position * TILE_SIZE, Color.White);
             spriteBatch.End();
 

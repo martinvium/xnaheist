@@ -24,11 +24,21 @@ namespace xnaheist.Camera
                                     10000.0f);
         }
 
-
+        internal void Update()
+        {
+            _position.X += Globals.CAMERA_STEP;
+        }
          #region Properties
         public Vector2 Position
         {
             get { return _position; }
+        }
+        public Matrix ViewMatrix
+        {
+            get
+            {
+                return Matrix.CreateTranslation(_position.X, _position.Y, 0);
+            }
         }
          #endregion
     }
