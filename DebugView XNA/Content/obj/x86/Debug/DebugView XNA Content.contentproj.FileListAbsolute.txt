@@ -13,5 +13,5 @@ C:\Users\Simon Engelsted\Documents\Skole\ITU\ITU 1\Game Design game\GameCode\Pur
 C:\Users\Christoffer\workspace\Visual Studio\Purgatory\DebugView XNA\Content\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Users\Carl\Documents\Visual Studio 2010\Projects\Purgatory 0.29\DebugView XNA\Content\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Users\Simon Engelsted\Documents\Skole\ITU\ITU 1\Game Design game\GameCode\Purgatory-0.0.32\Purgatory\DebugView XNA\Content\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Users\Christoffer\workspace\Visual Studio\xnaheist\DebugView XNA\Content\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Users\Martin\Documents\Visual Studio 2010\Projects\xnaheist\DebugView XNA\Content\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Christoffer\workspace\Visual Studio\xnaheist\DebugView XNA\Content\obj\x86\Debug\ResolveAssemblyReference.cache

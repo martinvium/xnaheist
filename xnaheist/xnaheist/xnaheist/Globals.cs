@@ -5,8 +5,11 @@ using System.Text;
 
 namespace xnaheist
 {
-    static class Globals
+    public static class Globals
     {
-        public static float METER_IN_PIXEL = 64f;
+        public const float METER_IN_PIXEL = 64f;
+        public const float CAMERA_STEP = 10f;
+
+
     }
 }

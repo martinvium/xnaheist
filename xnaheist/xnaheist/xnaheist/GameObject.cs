@@ -10,7 +10,7 @@ namespace xnaheist
     {
         string name;
         Body body;
-
+        
         public string Name
         {
             get { return name; }

@@ -16,6 +16,7 @@ namespace xnaheist
 
         public InputManager(Game1 game)
         {
+            
             this.game = game;        
         }
 
@@ -28,7 +29,7 @@ namespace xnaheist
         public void Update()
         {
             KeyboardState keyState = Keyboard.GetState();
-
+            
             if (keyState.IsKeyDown(Keys.Left))
             {
                 gameObject.Body.ApplyLinearImpulse(new Vector2(-VELOCITY, 0));

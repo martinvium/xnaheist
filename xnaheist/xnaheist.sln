@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xnaheist", "xnaheist\xnaheist\xnaheist.csproj", "{DF09B4DB-81BA-4AC0-8CF4-ACD31D80400F}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "xnaheistContent", "xnaheist\xnaheistContent\xnaheistContent.contentproj", "{11DAAA44-4271-414C-B7AA-7066491C06E4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xnaheistContent", "xnaheist\xnaheistContent\xnaheistContent.contentproj", "{11DAAA44-4271-414C-B7AA-7066491C06E4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Farseer Physics XNA", "..\Farseer Physics Engine 3.3 XNA\Farseer Physics XNA.csproj", "{0A850700-1ABB-4288-A391-6726B90EBEB9}"
 EndProject
