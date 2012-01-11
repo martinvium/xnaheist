@@ -27,22 +27,17 @@ namespace xnaheist
         public const float VELOCITY = 3.0f;
 
         GraphicsDeviceManager _graphics;
-        SpriteBatch spriteBatch;
 
-        //drawing, just for testing and playing
-        SpriteFont _font;
-        
-        Body _textBody;
-
-        World _world = new World(new Vector2(2, 20));
+        World _world = new World(new Vector2(0, 20));
 
         //Debug view
         bool _showDebug = false;
         DebugViewXNA _debugView;
         Vector2 _screenCenter;
-        InputManager inputSystem;
-        GameObject player;
-        GameObjectFactory gameObjectFactory;
+        InputManager _inputManager;
+        GameObject _player;
+        GameObjectFactory _gameObjectFactory;
+        ResourceManager _resources;
 
         public bool ShowDebug
         {
@@ -78,13 +73,13 @@ namespace xnaheist
         /// </summary>
         protected override void Initialize()
         {
-            gameObjectFactory = new GameObjectFactory(_world);
+            _resources = new ResourceManager(Content, new SpriteBatch(GraphicsDevice));
+            _gameObjectFactory = new GameObjectFactory(_world);
+            _player = _gameObjectFactory.getPlayer();
+            _player.Name = "Mr. Shizzle";
 
-            player = gameObjectFactory.getPlayer();
-            player.Name = "Mr. Shizzle";
-
-            inputSystem = new InputManager(this);
-            inputSystem.Player = player;
+            _inputManager = new InputManager(this);
+            _inputManager.Player = _player;
 
             base.Initialize();
         }
@@ -96,10 +91,8 @@ namespace xnaheist
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            _resources.Load();
             
-            
-            _font = Content.Load<SpriteFont>("times new roman");
 
             // TODO: use this.Content to load your game content here
 
@@ -132,7 +125,7 @@ namespace xnaheist
             //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
             //    this.Exit();
 
-            inputSystem.Update();
+            _inputManager.Update();
             _world.Step((float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.001f);
 
             base.Update(gameTime);
@@ -146,8 +139,9 @@ namespace xnaheist
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            SpriteBatch spriteBatch = _resources.GetSpriteBatch();
             spriteBatch.Begin();
-            spriteBatch.DrawString(_font, player.ToString(), player.Body.Position * TILE_SIZE, Color.White);
+            spriteBatch.DrawString(_resources.GetFont(), _player.ToString(), _player.Body.Position * TILE_SIZE, Color.White);
             spriteBatch.End();
 
             // calculate the projection and view adjustments for the debug view

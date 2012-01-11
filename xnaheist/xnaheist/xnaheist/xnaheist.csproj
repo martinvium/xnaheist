@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ResourceManager.cs" />
     <Compile Include="GameObjectFactory.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="InputManager.cs" />
