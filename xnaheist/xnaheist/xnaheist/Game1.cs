@@ -21,10 +21,10 @@ namespace xnaheist
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
-        const float TILE_SIZE = 64f;
-        const int WIDTH = 1280;
-        const int HEIGHT = 720;
-        const float VELOCITY = 3.0f;
+        public const float TILE_SIZE = 64f;
+        public const int WIDTH = 1280;
+        public const int HEIGHT = 720;
+        public const float VELOCITY = 3.0f;
 
         GraphicsDeviceManager _graphics;
         SpriteBatch spriteBatch;
@@ -42,6 +42,7 @@ namespace xnaheist
         Vector2 _screenCenter;
         InputSystem inputSystem;
         GameObject player;
+        GameObjectFactory gameObjectFactory;
 
         public bool ShowDebug
         {
@@ -77,7 +78,9 @@ namespace xnaheist
         /// </summary>
         protected override void Initialize()
         {
-            player = new GameObject();
+            gameObjectFactory = new GameObjectFactory(_world);
+
+            player = gameObjectFactory.getPlayer();
             player.Name = "Mr. Shizzle";
 
             inputSystem = new InputSystem(this);
@@ -95,12 +98,7 @@ namespace xnaheist
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             
-            //todo->test things
             _font = Content.Load<SpriteFont>("times new roman");
-            _textBody = BodyFactory.CreateRectangle(_world, 300/TILE_SIZE, 100/TILE_SIZE, 1, new Vector2(5,5));
-            _textBody.BodyType = BodyType.Dynamic;
-            _textBody.OnCollision += OnCollision;
-            player.Body = _textBody;
 
             // TODO: use this.Content to load your game content here
 
@@ -164,9 +162,6 @@ namespace xnaheist
             base.Draw(gameTime);
         }
 
-        private bool OnCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
-        {
-            return true;
-        }
+        
     }
 }
