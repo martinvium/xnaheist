@@ -10,9 +10,10 @@ namespace xnaheist.Camera
     class CameraManager
     {
         //todo->Create camera
-        internal Camera GetCamera(Vector2 position, Viewport viewport)
+        private Camera _camera;
+        internal void GetCamera(Vector2 position, Viewport viewport)
         {
-           return new Camera(position, viewport);
+           _camera = new Camera(position, viewport);
         }
         //todo->move that shit
         private void Center()

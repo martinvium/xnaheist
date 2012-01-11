@@ -131,7 +131,7 @@ namespace xnaheist
 
             _inputManager.Update();
             _world.Step((float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.001f);
-            _cam.Update();
+            _cam.Update(_inputManager.Player.Body.Position);
             base.Update(gameTime);
         }
 
@@ -152,7 +152,7 @@ namespace xnaheist
             Matrix projection = Matrix.CreateOrthographicOffCenter(0f, _graphics.GraphicsDevice.Viewport.Width / TILE_SIZE,
                                                              _graphics.GraphicsDevice.Viewport.Height / TILE_SIZE, 0f, 0f,
                                                              1f);
-            Matrix view = Matrix.CreateTranslation(new Vector3((Vector2.Zero / TILE_SIZE) - (_screenCenter / TILE_SIZE), 0f)) * Matrix.CreateTranslation(new Vector3((_screenCenter / TILE_SIZE), 0f));
+            Matrix view = Matrix.CreateTranslation(new Vector3((Vector2.Zero / TILE_SIZE) - (_cam.ScreenCenter / TILE_SIZE), 0f)) * Matrix.CreateTranslation(new Vector3((_cam.ScreenCenter / TILE_SIZE), 0f));
 
             if (_showDebug)
                 _debugView.RenderDebugData(ref projection, ref view);

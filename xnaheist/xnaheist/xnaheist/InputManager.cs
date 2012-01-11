@@ -14,10 +14,13 @@ namespace xnaheist
         GameObject gameObject;
         Game1 game;
 
+      
+
         public InputManager(Game1 game)
         {
             
-            this.game = game;        
+            this.game = game;  
+   
         }
 
         public GameObject Player
