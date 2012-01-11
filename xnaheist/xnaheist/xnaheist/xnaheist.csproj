@@ -109,6 +109,8 @@
   <ItemGroup>
     <Compile Include="Camera\Camera.cs" />
     <Compile Include="Camera\CameraManager.cs" />
+    <Compile Include="Content\ResourceManager.cs" />
+    <Compile Include="Content\Sprite.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="InputManager.cs" />
@@ -116,7 +118,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="ResourceManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

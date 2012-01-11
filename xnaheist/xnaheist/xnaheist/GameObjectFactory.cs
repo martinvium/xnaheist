@@ -6,12 +6,14 @@ using Microsoft.Xna.Framework;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
 using FarseerPhysics.Dynamics.Contacts;
+using xnaheist.Content;
 
 namespace xnaheist
 {
     class GameObjectFactory
     {
         World _world;
+        List<GameObject> _gameObjects = new List<GameObject>();
 
         public GameObjectFactory(World world)
         {
@@ -21,21 +23,29 @@ namespace xnaheist
         public GameObject getPlayer()
         {
             GameObject player = getCreature();
-            player.Body = BodyFactory.CreateRectangle(_world, 300 / Game1.TILE_SIZE, 100 / Game1.TILE_SIZE, 1, new Vector2(5, 5));
+            player.Body = BodyFactory.CreateRectangle(_world, 357 / Game1.TILE_SIZE, 480 / Game1.TILE_SIZE, 1, new Vector2(5, 5));
             player.Body.BodyType = BodyType.Dynamic;
+            player.Body.Mass = 5;
             player.Body.OnCollision += OnCollision;
+            player.Sprite = new Sprite("chef");
             return player;
         }
 
         public GameObject getCreature()
         {
             GameObject creature = new GameObject();
+            _gameObjects.Add(creature);
             return creature;
         }
 
         private bool OnCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             return true;
+        }
+
+        public List<GameObject> GetAll()
+        {
+            return _gameObjects;
         }
     }
 }

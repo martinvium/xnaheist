@@ -28,7 +28,6 @@ namespace xnaheist.Content
             foreach(GameObject gameObject in gameObjects) {
                 gameObject.Sprite.Load(_content);
             }
-            _player = _content.Load<Texture2D>("player.png");
         }
 
         public SpriteBatch GetSpriteBatch()

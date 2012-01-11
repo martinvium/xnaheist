@@ -13,6 +13,7 @@ using FarseerPhysics.Dynamics;
 using FarseerPhysics;
 using FarseerPhysics.Factories;
 using FarseerPhysics.Dynamics.Contacts;
+using xnaheist.Content;
 
 namespace xnaheist
 {
@@ -95,8 +96,7 @@ namespace xnaheist
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            _resources.Load();
-            
+            _resources.Load(_gameObjectFactory.GetAll());
 
             // TODO: use this.Content to load your game content here
 
@@ -146,6 +146,9 @@ namespace xnaheist
             SpriteBatch spriteBatch = _resources.GetSpriteBatch();
             spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, _cam.ViewMatrix);
             spriteBatch.DrawString(_resources.GetFont(), _player.ToString(), _player.Body.Position * TILE_SIZE, Color.White);
+            foreach(GameObject gameObject in _gameObjectFactory.GetAll()) {
+                gameObject.Sprite.Draw(spriteBatch, gameObject.Body.Position * TILE_SIZE);
+            }
             spriteBatch.End();
 
             // calculate the projection and view adjustments for the debug view

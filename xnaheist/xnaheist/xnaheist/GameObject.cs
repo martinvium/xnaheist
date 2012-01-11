@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FarseerPhysics.Dynamics;
+using Microsoft.Xna.Framework.Graphics;
+using xnaheist.Content;
 
 namespace xnaheist
 {
@@ -10,6 +12,7 @@ namespace xnaheist
     {
         string name;
         Body body;
+        Sprite _sprite;
         
         public string Name
         {
@@ -21,6 +24,12 @@ namespace xnaheist
         {
             get { return body; }
             set { body = value; }
+        }
+
+        public Sprite Sprite
+        {
+            get { return _sprite; }
+            set { _sprite = value; }
         }
 
         public override string ToString()
