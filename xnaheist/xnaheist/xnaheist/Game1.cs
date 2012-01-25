@@ -23,7 +23,6 @@ namespace xnaheist
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
-        public const float TILE_SIZE = 64f;
         public const int WIDTH = 1280;
         public const int HEIGHT = 720;
         public const float VELOCITY = 3.0f;
@@ -60,13 +59,13 @@ namespace xnaheist
 
             //borders
             //top
-            BodyFactory.CreateEdge(_world, new Vector2(0, 0) / TILE_SIZE, new Vector2(0, WIDTH) / TILE_SIZE);
+            BodyFactory.CreateEdge(_world, new Vector2(0, 0) / Globals.METER_IN_PIXEL, new Vector2(0, WIDTH) / Globals.METER_IN_PIXEL);
             //left
-            BodyFactory.CreateEdge(_world, new Vector2(0, 0) / TILE_SIZE, new Vector2(WIDTH, 0) / TILE_SIZE);
+            BodyFactory.CreateEdge(_world, new Vector2(0, 0) / Globals.METER_IN_PIXEL, new Vector2(WIDTH, 0) / Globals.METER_IN_PIXEL);
             //right
-            BodyFactory.CreateEdge(_world, new Vector2(WIDTH, 0) / TILE_SIZE, new Vector2(WIDTH, HEIGHT) / TILE_SIZE);
+            BodyFactory.CreateEdge(_world, new Vector2(WIDTH, 0) / Globals.METER_IN_PIXEL, new Vector2(WIDTH, HEIGHT) / Globals.METER_IN_PIXEL);
             //bottom
-            BodyFactory.CreateEdge(_world, new Vector2(0, HEIGHT) / TILE_SIZE, new Vector2(WIDTH, HEIGHT) / TILE_SIZE);
+            BodyFactory.CreateEdge(_world, new Vector2(0, HEIGHT) / Globals.METER_IN_PIXEL, new Vector2(WIDTH, HEIGHT) / Globals.METER_IN_PIXEL);
 
             Content.RootDirectory = "Content";
         }
@@ -154,17 +153,15 @@ namespace xnaheist
             SpriteBatch spriteBatch = _resources.GetSpriteBatch();
 
             spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, _cam.ViewMatrix);
-            spriteBatch.DrawString(_resources.GetFont(), _player.ToString(), _player.Body.Position * TILE_SIZE, Color.White);
-            foreach(GameObject gameObject in _gameObjectFactory.getAll()) {
-                gameObject.Sprite.Draw(spriteBatch, gameObject.Position * TILE_SIZE);
-            }
+            spriteBatch.DrawString(_resources.GetFont(), _player.ToString(), _player.Body.Position * Globals.METER_IN_PIXEL, Color.White);
+            _gameObjectFactory.Draw(spriteBatch);
             spriteBatch.End();
 
             // calculate the projection and view adjustments for the debug view
-            Matrix projection = Matrix.CreateOrthographicOffCenter(0f, _graphics.GraphicsDevice.Viewport.Width / TILE_SIZE,
-                                                             _graphics.GraphicsDevice.Viewport.Height / TILE_SIZE, 0f, 0f,
+            Matrix projection = Matrix.CreateOrthographicOffCenter(0f, _graphics.GraphicsDevice.Viewport.Width / Globals.METER_IN_PIXEL,
+                                                             _graphics.GraphicsDevice.Viewport.Height / Globals.METER_IN_PIXEL, 0f, 0f,
                                                              1f);
-            Matrix view = Matrix.CreateTranslation(new Vector3((Vector2.Zero / TILE_SIZE) - (_cam.ScreenCenter / TILE_SIZE), 0f)) * Matrix.CreateTranslation(new Vector3((_cam.ScreenCenter / TILE_SIZE), 0f));
+            Matrix view = Matrix.CreateTranslation(new Vector3((Vector2.Zero / Globals.METER_IN_PIXEL) - (_cam.ScreenCenter / Globals.METER_IN_PIXEL), 0f)) * Matrix.CreateTranslation(new Vector3((_cam.ScreenCenter / Globals.METER_IN_PIXEL), 0f));
 
             if (_showDebug)
                 _debugView.RenderDebugData(ref projection, ref view);

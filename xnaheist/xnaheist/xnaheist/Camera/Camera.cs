@@ -33,7 +33,7 @@ namespace xnaheist.Camera
         {
             ////todo->Set cam position
          
-            if (Math.Abs(_position.X + _half.X) < playerPosition.X * Globals.METER_IN_PIXEL)
+            /*if (Math.Abs(_position.X + _half.X) < playerPosition.X * Globals.METER_IN_PIXEL)
             {
                 _position.X += 1.0f;
             }
@@ -43,7 +43,7 @@ namespace xnaheist.Camera
                 _position.X -= 1.0f;
             }
             
-            UpdateScreenCenter();
+            UpdateScreenCenter();*/
         }
         private void UpdateScreenCenter()
         {

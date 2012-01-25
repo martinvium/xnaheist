@@ -7,6 +7,7 @@ using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
 using FarseerPhysics.Dynamics.Contacts;
 using xnaheist.Content;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace xnaheist
 {
@@ -20,10 +21,18 @@ namespace xnaheist
             _world = world;
         }
 
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            foreach (GameObject gameObject in _gameObjects)
+            {
+                gameObject.Sprite.Draw(spriteBatch, gameObject.Position * Globals.METER_IN_PIXEL);
+            }
+        }
+
         public GameObject getPlayer()
         {
             GameObject player = getGameObject();
-            player.Body = BodyFactory.CreateRectangle(_world, 357 / Game1.TILE_SIZE, 480 / Game1.TILE_SIZE, 1, new Vector2(5, 5));
+            player.Body = BodyFactory.CreateRectangle(_world, 357 / Globals.METER_IN_PIXEL, 480 / Globals.METER_IN_PIXEL, 1, new Vector2(5, 5));
             player.Body.BodyType = BodyType.Dynamic;
             player.Body.Mass = 5;
             player.Body.OnCollision += OnCollision;
