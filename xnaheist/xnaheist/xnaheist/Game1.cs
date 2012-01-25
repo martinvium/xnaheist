@@ -39,6 +39,7 @@ namespace xnaheist
         GameObject _player;
         GameObjectFactory _gameObjectFactory;
         ResourceManager _resources;
+        Map _map;
 
         Camera.Camera _cam;
 
@@ -107,6 +108,8 @@ namespace xnaheist
             _debugView.DefaultShapeColor = Color.Black;
             _debugView.SleepingShapeColor = Color.LightGray;
             _debugView.LoadContent(GraphicsDevice, Content);
+
+            _map = Content.Load<Map>("desert");
         }
 
         /// <summary>
@@ -145,6 +148,9 @@ namespace xnaheist
 
             SpriteBatch spriteBatch = _resources.GetSpriteBatch();
             spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, _cam.ViewMatrix);
+
+            _map.Draw(spriteBatch);
+
             spriteBatch.DrawString(_resources.GetFont(), _player.ToString(), _player.Body.Position * TILE_SIZE, Color.White);
             foreach(GameObject gameObject in _gameObjectFactory.GetAll()) {
                 gameObject.Sprite.Draw(spriteBatch, gameObject.Body.Position * TILE_SIZE);
