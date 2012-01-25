@@ -22,7 +22,7 @@ namespace xnaheist
 
         public GameObject getPlayer()
         {
-            GameObject player = getCreature();
+            GameObject player = getGameObject();
             player.Body = BodyFactory.CreateRectangle(_world, 357 / Game1.TILE_SIZE, 480 / Game1.TILE_SIZE, 1, new Vector2(5, 5));
             player.Body.BodyType = BodyType.Dynamic;
             player.Body.Mass = 5;
@@ -31,7 +31,7 @@ namespace xnaheist
             return player;
         }
 
-        public GameObject getCreature()
+        public GameObject getGameObject()
         {
             GameObject creature = new GameObject();
             _gameObjects.Add(creature);
@@ -43,9 +43,17 @@ namespace xnaheist
             return true;
         }
 
-        public List<GameObject> GetAll()
+        public List<GameObject> getAll()
         {
             return _gameObjects;
+        }
+
+        public GameObject getBackground(string file)
+        {
+            GameObject bg = getGameObject();
+            bg.Sprite = new Sprite(file);
+            bg.Position = Vector2.Zero;
+            return bg;
         }
     }
 }

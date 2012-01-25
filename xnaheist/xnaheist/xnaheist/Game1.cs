@@ -14,6 +14,7 @@ using FarseerPhysics;
 using FarseerPhysics.Factories;
 using FarseerPhysics.Dynamics.Contacts;
 using xnaheist.Content;
+using xnaheist.Levels;
 
 namespace xnaheist
 {
@@ -41,6 +42,8 @@ namespace xnaheist
         ResourceManager _resources;
 
         Camera.Camera _cam;
+
+        Level _level;
 
         public bool ShowDebug
         {
@@ -78,6 +81,10 @@ namespace xnaheist
         {
             _resources = new ResourceManager(Content, new SpriteBatch(GraphicsDevice));
             _gameObjectFactory = new GameObjectFactory(_world);
+
+            _level = new LevelOne();
+            _level.Initialize(_gameObjectFactory);
+
             _player = _gameObjectFactory.getPlayer();
             _player.Name = "Mr. Shizzle";
 
@@ -96,9 +103,10 @@ namespace xnaheist
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            _resources.Load(_gameObjectFactory.GetAll());
+            _resources.Load(_gameObjectFactory.getAll());
 
             // TODO: use this.Content to load your game content here
+            
 
             _screenCenter = new Vector2(_graphics.GraphicsDevice.Viewport.Width / 2f,
                                                 _graphics.GraphicsDevice.Viewport.Height / 2f);
@@ -144,10 +152,11 @@ namespace xnaheist
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             SpriteBatch spriteBatch = _resources.GetSpriteBatch();
+
             spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, _cam.ViewMatrix);
             spriteBatch.DrawString(_resources.GetFont(), _player.ToString(), _player.Body.Position * TILE_SIZE, Color.White);
-            foreach(GameObject gameObject in _gameObjectFactory.GetAll()) {
-                gameObject.Sprite.Draw(spriteBatch, gameObject.Body.Position * TILE_SIZE);
+            foreach(GameObject gameObject in _gameObjectFactory.getAll()) {
+                gameObject.Sprite.Draw(spriteBatch, gameObject.Position * TILE_SIZE);
             }
             spriteBatch.End();
 

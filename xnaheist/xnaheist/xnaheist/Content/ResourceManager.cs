@@ -13,7 +13,6 @@ namespace xnaheist.Content
         ContentManager _content;
 
         SpriteFont _font;
-        Texture2D _player;
 
         public ResourceManager(ContentManager content, SpriteBatch spriteBatch)
         {
@@ -38,11 +37,6 @@ namespace xnaheist.Content
         public SpriteFont GetFont()
         {
             return _font;
-        }
-
-        public Texture2D GetPlayerTexture()
-        {
-            return _player;
         }
     }
 }
