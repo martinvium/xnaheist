@@ -56,22 +56,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="desert.tmx">
-      <Name>desert</Name>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="desert_tiles.png">
-      <Name>desert_tiles</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\..\TiledLib\TiledLib.csproj">
       <Project>{EC3F6988-459C-4783-89E9-F34C0CC731C7}</Project>
       <Name>TiledLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\xnaheistContentPipelineExtension\xnaheistContentPipelineExtension.csproj">
+      <Project>{586FE1C2-50A1-404D-9EDB-8DDE303F3DBD}</Project>
+      <Name>xnaheistContentPipelineExtension</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="mymap.tmx">
+      <Name>mymap</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>MapProcessor</Processor>
+      <SubType>Designer</SubType>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 

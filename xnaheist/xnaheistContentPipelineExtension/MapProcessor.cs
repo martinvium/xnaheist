@@ -9,8 +9,8 @@ using TiledLib;
 namespace xnaheistContentPipelineExtension
 {
     // Each tile has a texture, source rect, and sprite effects.
-    [ContentSerializerRuntimeType("xnaheist.Tile, xnaheist")]
-    public class DemoMapTileContent
+    [ContentSerializerRuntimeType("xnaheist.Tile, Heist")]
+    public class HeistMapTileContent
     {
         public ExternalReference<Texture2DContent> Texture;
         public Rectangle SourceRectangle;
@@ -18,27 +18,27 @@ namespace xnaheistContentPipelineExtension
     }
 
     // For each layer, we store the size of the layer and the tiles.
-    [ContentSerializerRuntimeType("xnaheist.Layer, xnaheist")]
-    public class DemoMapLayerContent
+    [ContentSerializerRuntimeType("xnaheist.Layer, Heist")]
+    public class HeistMapLayerContent
     {
         public int Width;
         public int Height;
-        public DemoMapTileContent[] Tiles;
+        public HeistMapTileContent[] Tiles;
     }
 
     // For the map itself, we just store the size, tile size, and a list of layers.
-    [ContentSerializerRuntimeType("xnaheist.Map, xnaheist")]
-    public class DemoMapContent
+    [ContentSerializerRuntimeType("xnaheist.Map, Heist")]
+    public class HeistMapContent
     {
         public int TileWidth;
         public int TileHeight;
-        public List<DemoMapLayerContent> Layers = new List<DemoMapLayerContent>();
+        public List<HeistMapLayerContent> Layers = new List<HeistMapLayerContent>();
     }
 
-    [ContentProcessor(DisplayName = "TMX Processor - xnaheist")]
-    public class MapProcessor : ContentProcessor<MapContent, DemoMapContent>
+    [ContentProcessor(DisplayName = "TMX Processor - Heist")]
+    public class MapProcessor : ContentProcessor<MapContent, HeistMapContent>
     {
-        public override DemoMapContent Process(MapContent input, ContentProcessorContext context)
+        public override HeistMapContent Process(MapContent input, ContentProcessorContext context)
         {
             // build the textures
             TiledHelpers.BuildTileSetTextures(input, context);
@@ -47,7 +47,7 @@ namespace xnaheistContentPipelineExtension
             TiledHelpers.GenerateTileSourceRectangles(input);
 
             // now build our output, first by just copying over some data
-            DemoMapContent output = new DemoMapContent
+            HeistMapContent output = new HeistMapContent
             {
                 TileWidth = input.TileWidth,
                 TileHeight = input.TileHeight
@@ -56,19 +56,19 @@ namespace xnaheistContentPipelineExtension
             // iterate all the layers of the input
             foreach (LayerContent layer in input.Layers)
             {
-                // we only care about tile layers in our demo
+                // we only care about tile layers in our Heist
                 TileLayerContent tlc = layer as TileLayerContent;
                 if (tlc != null)
                 {
                     // create the new layer
-                    DemoMapLayerContent outLayer = new DemoMapLayerContent
+                    HeistMapLayerContent outLayer = new HeistMapLayerContent
                     {
                         Width = tlc.Width,
                         Height = tlc.Height,
                     };
 
                     // we need to build up our tile list now
-                    outLayer.Tiles = new DemoMapTileContent[tlc.Data.Length];
+                    outLayer.Tiles = new HeistMapTileContent[tlc.Data.Length];
                     for (int i = 0; i < tlc.Data.Length; i++)
                     {
                         // get the ID of the tile
@@ -100,7 +100,7 @@ namespace xnaheistContentPipelineExtension
                         }
 
                         // now insert the tile into our output
-                        outLayer.Tiles[i] = new DemoMapTileContent
+                        outLayer.Tiles[i] = new HeistMapTileContent
                         {
                             Texture = textureContent,
                             SourceRectangle = sourceRect,

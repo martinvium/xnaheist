@@ -109,7 +109,7 @@ namespace xnaheist
             _debugView.SleepingShapeColor = Color.LightGray;
             _debugView.LoadContent(GraphicsDevice, Content);
 
-            _map = Content.Load<Map>("desert");
+            _map = Content.Load<Map>("mymap");
         }
 
         /// <summary>
