@@ -153,8 +153,8 @@ namespace xnaheist
             SpriteBatch spriteBatch = _resources.GetSpriteBatch();
 
             spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, _cam.ViewMatrix);
-            spriteBatch.DrawString(_resources.GetFont(), _player.ToString(), _player.Body.Position * Globals.METER_IN_PIXEL, Color.White);
             _gameObjectFactory.Draw(spriteBatch);
+            spriteBatch.DrawString(_resources.GetFont(), _player.ToString(), _player.Body.Position * Globals.METER_IN_PIXEL, Color.Black);
             spriteBatch.End();
 
             // calculate the projection and view adjustments for the debug view

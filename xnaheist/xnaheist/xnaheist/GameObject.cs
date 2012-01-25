@@ -45,7 +45,7 @@ namespace xnaheist
             {
                 if (body != null)
                 {
-                    return body.Position;
+                    return body.Position * Globals.METER_IN_PIXEL;
                 }
                 else if (_position != null)
                 {

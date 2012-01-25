@@ -25,7 +25,7 @@ namespace xnaheist
         {
             foreach (GameObject gameObject in _gameObjects)
             {
-                gameObject.Sprite.Draw(spriteBatch, gameObject.Position * Globals.METER_IN_PIXEL);
+                gameObject.Sprite.Draw(spriteBatch, gameObject.Position);
             }
         }
 
@@ -61,7 +61,7 @@ namespace xnaheist
         {
             GameObject bg = getGameObject();
             bg.Sprite = new Sprite(file);
-            bg.Position = Vector2.Zero;
+            bg.Position = new Vector2(1280 / 2, 720 / 2);
             return bg;
         }
     }
