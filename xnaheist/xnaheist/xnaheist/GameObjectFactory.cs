@@ -31,12 +31,15 @@ namespace xnaheist
 
         public GameObject getPlayer()
         {
+            float width = 357 / Globals.METER_IN_PIXEL;
+            float height = 480 / Globals.METER_IN_PIXEL;
+
             GameObject player = getGameObject();
-            player.Body = BodyFactory.CreateRectangle(_world, 357 / Globals.METER_IN_PIXEL, 480 / Globals.METER_IN_PIXEL, 1, new Vector2(5, 5));
+            player.Body = BodyFactory.CreateRectangle(_world, width, height, 1, new Vector2(5, 5));
             player.Body.BodyType = BodyType.Dynamic;
             player.Body.Mass = 5;
             player.Body.OnCollision += OnCollision;
-            player.Sprite = new Sprite("chef");
+            player.Sprite = new Sprite("player");
             return player;
         }
 
