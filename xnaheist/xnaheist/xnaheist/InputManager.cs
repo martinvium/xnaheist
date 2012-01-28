@@ -32,7 +32,46 @@ namespace xnaheist
         public void Update()
         {
             KeyboardState keyState = Keyboard.GetState();
-            
+            GamePadState padState = GamePad.GetState(PlayerIndex.One);
+
+            if (padState.ThumbSticks.Left.X > 0)//left
+            {
+                gameObject.Body.ApplyLinearImpulse(new Vector2(VELOCITY, 0));
+                
+            }
+            if (padState.ThumbSticks.Left.X < 0)//right
+            {
+                gameObject.Body.ApplyLinearImpulse(new Vector2(-VELOCITY, 0));
+            }
+            if (padState.ThumbSticks.Left.Y > 0)//up
+            {
+                gameObject.Body.ApplyLinearImpulse(new Vector2(0, -VELOCITY));
+            }
+            if (padState.ThumbSticks.Left.Y < 0)//down
+            {
+                gameObject.Body.ApplyLinearImpulse(new Vector2(0, VELOCITY));
+            }
+
+
+
+            if (padState.ThumbSticks.Right.X > 0)//left
+            {
+                gameObject.Body.ApplyLinearImpulse(new Vector2(VELOCITY, 0));
+                
+            }
+            if (padState.ThumbSticks.Right.X < 0)//right
+            {
+                gameObject.Body.ApplyLinearImpulse(new Vector2(-VELOCITY, 0));
+            }
+            if (padState.ThumbSticks.Right.Y > 0)//up
+            {
+                gameObject.Body.ApplyLinearImpulse(new Vector2(0, -VELOCITY));
+            }
+            if (padState.ThumbSticks.Right.Y < 0)//down
+            {
+                gameObject.Body.ApplyLinearImpulse(new Vector2(0, VELOCITY));
+
+            }
             if (keyState.IsKeyDown(Keys.Left))
             {
                 gameObject.Body.ApplyLinearImpulse(new Vector2(-VELOCITY, 0));

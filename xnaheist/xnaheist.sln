@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xnaheist", "xnaheist\xnaheist\xnaheist.csproj", "{DF09B4DB-81BA-4AC0-8CF4-ACD31D80400F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xnaheists", "xnaheist\xnaheist\xnaheists.csproj", "{DF09B4DB-81BA-4AC0-8CF4-ACD31D80400F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xnaheistContent", "xnaheist\xnaheistContent\xnaheistContent.contentproj", "{11DAAA44-4271-414C-B7AA-7066491C06E4}"
 EndProject

@@ -31,14 +31,15 @@ namespace xnaheist
 
         public GameObject getPlayer()
         {
-            float width = 357 / Globals.METER_IN_PIXEL;
-            float height = 480 / Globals.METER_IN_PIXEL;
+            float width = 35 / Globals.METER_IN_PIXEL;
+            float height = 48 / Globals.METER_IN_PIXEL;
 
             GameObject player = getGameObject();
             player.Body = BodyFactory.CreateRectangle(_world, width, height, 1, new Vector2(5, 5));
             player.Body.BodyType = BodyType.Dynamic;
             player.Body.Mass = 5;
             player.Body.OnCollision += OnCollision;
+            player.Body.IgnoreGravity = true;
             player.Sprite = new Sprite("player");
             return player;
         }
